@@ -12,5 +12,14 @@ import NavMenu from './components/NavMenu.vue';
 </template>
 
 <style scoped>
-
+main {
+  margin-left: var(--navbar-thichness);
+  padding: 1rem;
+}
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  main {
+    margin: 0;
+  }
+}
 </style>
