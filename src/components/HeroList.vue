@@ -1,10 +1,7 @@
 <script setup lang="ts">
+import type { Hero } from '@/model/Hero';
 import { ref, watchEffect } from 'vue';
 
-interface Hero {
-  id?: number;
-  name: string;
-}
 const heroes = ref<Hero[]>([])
 watchEffect(async () => {
   const response = await fetch('http://localhost:5174/heroes');
