@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type Component, ref } from 'vue';
 import NavMenuItem from './NavMenuItem.vue';
+import CatsLogo from './icons/CatsLogo.vue'
 import MenuLogo from './icons/MenuLogo.vue'
 import ShuttleLogo from './icons/ShuttleLogo.vue'
 import ThemifyLogo from './icons/ThemifyLogo.vue'
@@ -12,6 +13,11 @@ interface Item {
 }
 
 const items = ref<Item[]>([
+  {
+    label: "List", //Cats
+    route: "/heroes/list",
+    icon: CatsLogo
+  },
   {
     label: "Home", //Shuttle
     route: "/",
