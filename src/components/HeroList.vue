@@ -1,22 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 interface Hero {
   id?: number;
   name: string;
 }
-const heroes = ref<Hero[]>([
-  { id: 11, name: 'Dr Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
-])
+const heroes = ref<Hero[]>([])
+watchEffect(async () => {
+  const response = await fetch('http://localhost:5174/heroes');
+  heroes.value = await response.json();
+})
 </script>
 
 <template>
