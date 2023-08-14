@@ -9,6 +9,7 @@ defineProps<{
 <template>
 <li :class="logo ? 'logo' : 'nav-item'">
   <RouterLink :to="route" class="nav-link">
+    <slot v-if="!logo"></slot>
     <span :class="`link-text${logo ? ' logo-text' : ''}`">
       {{label}}
     </span>

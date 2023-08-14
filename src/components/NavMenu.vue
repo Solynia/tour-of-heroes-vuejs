@@ -1,14 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { type Component, ref } from 'vue';
 import NavMenuItem from './NavMenuItem.vue';
 import MenuLogo from './icons/MenuLogo.vue'
+import ShuttleLogo from './icons/ShuttleLogo.vue'
+import ThemifyLogo from './icons/ThemifyLogo.vue'
 
 interface Item {
   label: string;
   route: string;
+  icon: Component;
 }
 
-const items = ref<Item[]>([])
+const items = ref<Item[]>([
+  {
+    label: "Home", //Shuttle
+    route: "/",
+    icon: ShuttleLogo
+  },
+  {
+    label: "Home", //Themify
+    route: "/",
+    icon: ThemifyLogo
+  }
+])
 </script>
 
 <template>
@@ -18,7 +32,9 @@ const items = ref<Item[]>([])
         <MenuLogo />
       </NavMenuItem>
       <template v-for="(item, index) in items" :key="index">
-        <NavMenuItem :label="item.label" :route="item.route" />
+        <NavMenuItem :label="item.label" :route="item.route">
+          <component :is="item.icon" />
+        </NavMenuItem>
       </template>
     </ul>
   </nav>
