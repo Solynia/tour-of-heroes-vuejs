@@ -7,6 +7,11 @@ const router = createRouter({
       path: '/heroes/list',
       name: 'heroesList',
       component: () => import('../components/HeroList.vue')
+    },
+    {
+      path: '/heroes/detail/:id',
+      name: 'heroDetail',
+      component: () => import('../components/HeroDetail.vue')
     }
   ]
 })
