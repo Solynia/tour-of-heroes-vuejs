@@ -12,11 +12,12 @@ defineProps<{
     <span :class="`link-text${logo ? ' logo-text' : ''}`">
       {{label}}
     </span>
+    <slot v-if="logo"></slot>
   </RouterLink>
 </li>
 </template>
 
-<style scoped>
+<style>
 .logo {
   font-weight: bold;
   text-transform: uppercase;
@@ -27,6 +28,11 @@ defineProps<{
   font-size: 1.5rem;
   letter-spacing: 0.3ch;
   width: 100%;
+}
+
+.logo svg {
+  transform: rotate(0deg);
+  transition: var(--transition-speed);
 }
 
 .nav-item {
@@ -51,6 +57,25 @@ defineProps<{
   filter: grayscale(0%) opacity(1);
   background: var(--bg-secondary);
   color: var(--text-secondary);
+}
+
+.nav-link svg {
+  width: 2rem;
+  min-width: 2rem;
+  margin: 0 1.5rem;
+}
+
+.fa-primary {
+  color: #ff7eee;
+}
+
+.fa-secondary {
+  color: #df49a6;
+}
+
+.fa-primary,
+.fa-secondary {
+  transition: var(--transition-speed);
 }
 
 .logo-text {

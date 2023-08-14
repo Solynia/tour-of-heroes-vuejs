@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import NavMenuItem from './NavMenuItem.vue';
+import MenuLogo from './icons/MenuLogo.vue'
 
 interface Item {
   label: string;
@@ -13,7 +14,9 @@ const items = ref<Item[]>([])
 <template>
   <nav className="navbar">
     <ul className="navbar-nav">
-      <NavMenuItem :label="'TOR'" :route="'/'" :logo="true" />
+      <NavMenuItem :label="'TOR'" :route="'/'" :logo="true">
+        <MenuLogo />
+      </NavMenuItem>
       <template v-for="(item, index) in items" :key="index">
         <NavMenuItem :label="item.label" :route="item.route" />
       </template>
@@ -68,6 +71,9 @@ const items = ref<Item[]>([])
   }
   .navbar:hover .link-text {
     display: inline;
+  }
+  .navbar:hover .logo svg {
+    margin-left: 11rem;
   }
   .navbar:hover .logo-text {
     left: 0px;
