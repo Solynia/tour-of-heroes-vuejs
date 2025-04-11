@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import NavMenu from './components/NavMenu.vue';
+import NotificationMessage from './components/NotificationMessage.vue'
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import NavMenu from './components/NavMenu.vue';
     <h1>Tour of heroes</h1>
     <RouterView />
   </main>
+  <NotificationMessage />
 </template>
 
 <style scoped>
