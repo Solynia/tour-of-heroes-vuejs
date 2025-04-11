@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import type { Hero } from '@/model/Hero';
-import { ref, watchEffect } from 'vue';
+import { useStore } from '@/store'
+import { computed } from 'vue'
 
-const heroes = ref<Hero[]>([])
-watchEffect(async () => {
-  const response = await fetch('http://localhost:5174/heroes');
-  heroes.value = await response.json();
-})
+const store = useStore()
+store.dispatch('fetchHeroes')
+const heroes = computed(() => store.state.heroes.heroes)
 </script>
 
 <template>

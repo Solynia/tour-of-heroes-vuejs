@@ -1,42 +1,38 @@
 <script setup lang="ts">
-import type { Hero } from '@/model/Hero';
-import { computed, ref, watchEffect } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import type { Hero, HeroEntity } from '@/model/Hero'
+import { useStore } from '@/store'
+import { computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const router = useRouter();
-const route = useRoute();
+const router = useRouter()
+const route = useRoute()
+const store = useStore()
 
-const hero = ref<Hero>({ id: new Date(Date.now()).getTime(), name: '' })
-const input = ref<string>('')
+const hero = ref<Hero>({ name: '' })
+const input = ref<string>(hero.value.name)
 const formInvalid = computed(() => !input.value || input.value === hero.value.name)
 
 const redirectToList = () => router.push({ path: '/heroes/list' });
 const onSubmit = async () => {
   if (formInvalid.value) return;
 
-  const response = await fetch(
-     `http://localhost:5174/heroes/${route.params.id ? route.params.id : ''}`,
-    {
-      method: route.params.id ? 'put' : 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: hero.value.id, name: input.value })
-    }
-  );
-  if ([200, 201].includes(response.status)) {
-    redirectToList();
-  }
+  await store.dispatch(route.params.id ? 'updateHero' : 'createHero', {
+    id: hero.value.id,
+    name: input.value
+  })
+
+  redirectToList();
 }
 
-
-watchEffect(async () => {
-  if (!route.params.id) return
-
-  const response = await fetch(`http://localhost:5174/heroes/${route.params.id}`);
-  if (response.status == 200) {
-    hero.value = await response.json();
-    input.value = hero.value!.name;
+if (route.params.id) {
+  const selectedHero = computed(
+    () => store.getters.getHeroById(+route.params.id) as HeroEntity | undefined
+  )
+  if (selectedHero.value !== undefined) {
+    hero.value = selectedHero.value
+    input.value = hero.value!.name
   }
-})
+}
 </script>
 
 <template>
