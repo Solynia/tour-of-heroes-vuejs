@@ -54,7 +54,7 @@ defineProps<{
   transition: var(--transition-speed);
 }
 
-.nav-link:hover {
+.nav-link:hover, .router-link-exact-active {
   filter: grayscale(0%) opacity(1);
   background: var(--bg-secondary);
   color: var(--text-secondary);
